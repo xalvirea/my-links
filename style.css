@@ -1,0 +1,209 @@
+/* --- CSS Reset & Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Perfect Gradient Inspired by image_934f86.png */
+    background: linear-gradient(180deg, #F3E7FA 0%, #D8C3FA 50%, #B69AFA 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;
+    padding: 15px;
+    overflow: hidden; /* Encapsulated viewport, no scrolling bar */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --- Page Stages Management --- */
+.page-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.page-stage.hidden {
+    display: none;
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+/* --- STAGE 1: Welcome Page Styles --- */
+.welcome-container {
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.welcome-text {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #4A3375;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+.discover-btn {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #ffffff;
+    background-color: #7C5CB7;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(124, 92, 183, 0.25);
+    transition: all 0.3s ease;
+}
+
+.discover-btn:hover {
+    background-color: #66469E;
+    box-shadow: 0 12px 30px rgba(124, 92, 183, 0.4);
+    transform: translateY(-4px);
+}
+
+/* --- STAGE 2: Links Page Styles (No-Scroll Grid) --- */
+.container {
+    width: 100%;
+    max-width: 540px; /* Expanded slightly to give 3 columns perfect spacing on PC */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 30px 10px;
+    animation: fadeInPage 0.6s ease-out;
+}
+
+.profile-header {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.avatar {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 12px;
+}
+
+.name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #4A3375;
+    margin-bottom: 4px;
+}
+
+.bio {
+    font-size: 0.95rem;
+    color: #634E89;
+    font-weight: 600;
+}
+
+/* --- Responsive Layout (3 Columns on PC, 1 Column on Mobile) --- */
+.links-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Clean 3x2 Grid layout for desktops */
+    gap: 12px;
+    margin: 25px 0;
+}
+
+/* Premium Frosted Glassmorphism Theme */
+.link-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    padding: 16px 10px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.link-card i {
+    font-size: 1.2rem;
+    color: #7C5CB7;
+}
+
+.link-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #4A3375;
+}
+
+/* --- Clean & Professional Hover States --- */
+.linkedin-btn:hover { background-color: #E6F7FF; transform: translateY(-4px); border-color: #B3E5FC; }
+.linkedin-btn:hover .link-title, .linkedin-btn i { color: #0077B5; }
+
+.github-btn:hover { background-color: #F4EFFF; transform: translateY(-4px); border-color: #D1C4E9; }
+.github-btn:hover .link-title, .github-btn i { color: #6b46c1; }
+
+.aura-btn:hover { background-color: #E6FFFA; transform: translateY(-4px); border-color: #B2DFDB; }
+.aura-btn:hover .link-title, .aura-btn i { color: #2C7A7B; } 
+
+.resume-btn:hover { background-color: #FFF9E6; transform: translateY(-4px); border-color: #FFE082; }
+.resume-btn:hover .link-title, .resume-btn i { color: #C05621; } 
+
+.instagram-btn:hover { background-color: #FFF0F5; transform: translateY(-4px); border-color: #F8BBD0; }
+.instagram-btn:hover .link-title, .instagram-btn i { color: #D53F8C; }
+
+.facebook-btn:hover { background-color: #EEF3FF; transform: translateY(-4px); border-color: #ADC6FF; }
+.facebook-btn:hover .link-title, .facebook-btn i { color: #1877F2; }
+
+/* --- Footer --- */
+.footer {
+    font-size: 0.85rem;
+    color: #634E89;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.footer i {
+    color: #7C5CB7;
+    display: inline-block;
+    animation: heartbeat 1.5s infinite;
+}
+
+/* --- Mobile View Breakpoint (Switches layout beautifully) --- */
+@media (max-width: 600px) {
+    .links-wrapper {
+        grid-template-columns: 1fr; /* Stacked 1-column layout on phones */
+        gap: 10px;
+    }
+    .link-card {
+        padding: 14px; /* Slightly tighter padding to ensure no overflow */
+    }
+    .welcome-text { font-size: 2.6rem; }
+    .name { font-size: 1.4rem; }
+}
+
+/* --- Keyframe Animations --- */
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
