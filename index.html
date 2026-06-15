@@ -3,118 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amina Touati | Welcome & Links</title>
-    
-    <!-- Professional SEO Meta Description -->
-    <meta name="description" content="This is a website containing all my personal and professional links 🤍">
-    
-    <!-- FontAwesome for Cute Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts for Professional & Clean Typography -->
+    <title>Amina Touati | Links</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Linking External CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Cute Background Particles Floating Behind Everything -->
     <div class="particles-container">
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
     </div>
 
-    <!-- Cute Toast Notification for Share Button -->
-    <div id="toast-notification" class="toast hidden">Link copied to clipboard! 💙</div>
+    <div id="toast-notification" class="toast hidden">
+        Link copied to clipboard! 📋
+    </div>
 
-    <!-- Global Top Controls (Available in both Stages) -->
-    <button id="dark-mode-btn" class="control-btn-top mode-toggle-left" title="Toggle Dark Mode">
+    <button id="dark-mode-btn" class="control-btn-top mode-toggle-left" aria-label="Toggle Dark Mode">
         <i class="fas fa-moon"></i>
     </button>
-
-    <button id="share-btn" class="control-btn-top share-button-right" title="Share Website">
+    <button id="share-btn" class="control-btn-top share-button-right" aria-label="Share Profile">
         <i class="fas fa-share-alt"></i>
     </button>
 
-    <!-- STAGE 1: Welcoming Splash Page -->
     <div id="welcome-page" class="page-stage">
         <div class="welcome-container">
-            <h1 class="welcome-text">Hello & Welcome! ✨</h1>
+            <h1 class="welcome-text">Hello, I'm Amina</h1>
             <button id="discover-btn" class="discover-btn">Discover My World</button>
         </div>
     </div>
 
-    <!-- STAGE 2: Main Links Page -->
     <div id="links-page" class="page-stage hidden">
         <div class="container">
             
-            <!-- Header Section -->
-            <header class="profile-header">
-                <img src="https://via.placeholder.com/100" alt="Amina Touati" class="avatar">
-                <h1 class="name">Amina Touati</h1>
-                <!-- Dynamic Typewriter Text Container -->
-                <p class="bio"><span id="typewriter-text"></span><span class="cursor">|</span></p>
-            </header>
+            <div class="profile-header">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Amina" alt="Amina Touati" class="avatar">
+                <h2 class="name">Amina Touati</h2>
+                <div class="bio">
+                    <span id="typewriter-text"></span><span class="cursor">|</span>
+                </div>
+            </div>
 
-            <!-- Links Section (6 Cards) -->
-            <main class="links-wrapper">
-                
-                <!-- LinkedIn -->
-                <a href="#" target="_blank" class="link-card linkedin-btn">
-                    <i class="fab fa-linkedin-in icon-bounce"></i>
+            <div class="links-wrapper">
+                <a href="https://linkedin.com" target="_blank" class="link-card linkedin-btn">
+                    <i class="fab fa-linkedin-in"></i>
                     <span class="link-title">LinkedIn</span>
                 </a>
 
-                <!-- GitHub Portfolio -->
-                <a href="#" target="_blank" class="link-card github-btn">
-                    <i class="fab fa-github icon-wiggle"></i>
+                <a href="https://github.com" target="_blank" class="link-card github-btn">
+                    <i class="fab fa-github"></i>
                     <span class="link-title">GitHub</span>
                 </a>
 
-                <!-- Aura Project -->
-                <a href="#" target="_blank" class="link-card aura-btn">
-                    <i class="fas fa-id-card icon-pulse"></i>
+                <a href="https://instagram.com" target="_blank" class="link-card aura-btn">
+                    <i class="fas fa-id-card"></i>
                     <span class="link-title">Aura Card</span>
                 </a>
 
-                <!-- Download CV -->
                 <a href="#" target="_blank" class="link-card resume-btn">
                     <i class="fas fa-file-pdf"></i>
                     <span class="link-title">My CV</span>
                 </a>
 
-                <!-- Instagram -->
-                <a href="#" target="_blank" class="link-card instagram-btn">
-                    <i class="fab fa-instagram icon-spin"></i>
+                <a href="https://instagram.com" target="_blank" class="link-card instagram-btn">
+                    <i class="fab fa-instagram"></i>
                     <span class="link-title">Instagram</span>
                 </a>
 
-                <!-- Facebook -->
-                <a href="#" target="_blank" class="link-card facebook-btn">
-                    <i class="fab fa-facebook-f icon-flip"></i>
+                <a href="https://facebook.com" target="_blank" class="link-card facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
                     <span class="link-title">Facebook</span>
                 </a>
+            </div>
 
-            </main>
-
-            <!-- Footer Section -->
             <footer class="footer">
-                <p>Made with <i class="fas fa-heart"></i> by Amina</p>
+                Made with <i class="fas fa-heart"></i> by Amina
             </footer>
 
         </div>
     </div>
 
-    <!-- Linking External JavaScript -->
+    <div id="nav-arrow" class="nav-arrow-btn">
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
