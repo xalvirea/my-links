@@ -7,13 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("toast-notification");
     const typewriterEl = document.getElementById("typewriter-text");
 
+    // Check if the device is a mobile phone to optimize performance
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
     // 1. Smooth Stage Navigation
     discoverBtn.addEventListener("click", () => {
         welcomePage.classList.add("hidden");
         linksPage.classList.remove("hidden");
+        // Scroll to top smoothly upon transition
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 2. Share Button & Clipboard Copy (Works globally from Page 1 or 2)
+    // 2. Share Button & Clipboard Copy
     shareBtn.addEventListener("click", () => {
         const currentUrl = window.location.href;
         navigator.clipboard.writeText(currentUrl).then(() => {
@@ -47,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let typingSpeed = 80;
 
     function typeEffect() {
+        if (!typewriterEl) return;
         const currentRole = roles[roleIndex];
         
         if (isDeleting) {
@@ -73,30 +79,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typewriterEl) typeEffect();
 
 
-    // 5. Cute Click Blue Sparkles Interactive Effect (Disabled over action elements)
-    document.addEventListener("click", (e) => {
-        if (e.target.closest('.control-btn-top') || e.target.closest('.link-card') || e.target.closest('.discover-btn')) return;
+    // 5. Click Blue Sparkles (STRICTLY DISABLED ON MOBILE FOR ULTRA FAST SPEED)
+    if (!isMobile) {
+        document.addEventListener("click", (e) => {
+            if (e.target.closest('.control-btn-top') || e.target.closest('.link-card') || e.target.closest('.discover-btn')) return;
 
-        const totalParticles = 6;
-        for (let i = 0; i < totalParticles; i++) {
-            const sparkle = document.createElement("div");
-            sparkle.classList.add("click-sparkle");
-            
-            const angle = (i / totalParticles) * 2 * Math.PI;
-            const distance = 30 + Math.random() * 20;
-            const mx = Math.cos(angle) * distance + "px";
-            const my = Math.sin(angle) * distance + "px";
-            
-            sparkle.style.setProperty("--mx", mx);
-            sparkle.style.setProperty("--my", my);
-            sparkle.style.left = e.clientX + "px";
-            sparkle.style.top = e.clientY + "px";
-            
-            const colors = ['#38BDF8', '#0EA5E9', '#ffffff', '#E2E8F0'];
-            sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            document.body.appendChild(sparkle);
-            sparkle.addEventListener("animationend", () => sparkle.remove());
-        }
-    });
+            const totalParticles = 6;
+            for (let i = 0; i < totalParticles; i++) {
+                const sparkle = document.createElement("div");
+                sparkle.classList.add("click-sparkle");
+                
+                const angle = (i / totalParticles) * 2 * Math.PI;
+                const distance = 30 + Math.random() * 20;
+                const mx = Math.cos(angle) * distance + "px";
+                const my = Math.sin(angle) * distance + "px";
+                
+                sparkle.style.setProperty("--mx", mx);
+                sparkle.style.setProperty("--my", my);
+                sparkle.style.left = e.clientX + "px";
+                sparkle.style.top = e.clientY + "px";
+                
+                const colors = ['#1E40AF', '#3B82F6', '#ffffff', '#93C5FD'];
+                sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                document.body.appendChild(sparkle);
+                sparkle.addEventListener("animationend", () => sparkle.remove());
+            }
+        });
+    }
 });
