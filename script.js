@@ -7,41 +7,49 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("toast-notification");
     const typewriterEl = document.getElementById("typewriter-text");
 
-    // Check if the device is a mobile phone to optimize performance
+    // فحص نوع الجهاز لتسريع الأداء فوراً على الهواتف الذكية
     const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
-    // 1. Smooth Stage Navigation
-    discoverBtn.addEventListener("click", () => {
-        welcomePage.classList.add("hidden");
-        linksPage.classList.remove("hidden");
-        // Scroll to top smoothly upon transition
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    // 1. الانتقال السلس والمباشر بين صفحة الترحيب وصفحة الروابط
+    if (discoverBtn && welcomePage && linksPage) {
+        discoverBtn.addEventListener("click", () => {
+            welcomePage.classList.add("hidden");
+            linksPage.classList.remove("hidden");
+            // التمرير إلى أعلى الصفحة تلقائياً لمنع أي قص في المحتوى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
-    // 2. Share Button & Clipboard Copy
-    shareBtn.addEventListener("click", () => {
-        const currentUrl = window.location.href;
-        navigator.clipboard.writeText(currentUrl).then(() => {
-            toast.classList.remove("hidden");
-            setTimeout(() => { toast.classList.add("hidden"); }, 2500);
-        }).catch(err => console.error("Could not copy URL: ", err));
-    });
+    // 2. زر المشاركة ونسخ رابط الموقع إلى الحافظة مع إشعار (Toast)
+    if (shareBtn) {
+        shareBtn.addEventListener("click", () => {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                if (toast) {
+                    toast.classList.remove("hidden");
+                    setTimeout(() => { toast.classList.add("hidden"); }, 2500);
+                }
+            }).catch(err => console.error("Could not copy URL: ", err));
+        });
+    }
 
-    // 3. Premium Blue Dark Mode Toggle Logic
-    darkModeBtn.addEventListener("click", () => {
-        const currentTheme = document.body.getAttribute("data-theme");
-        const icon = darkModeBtn.querySelector("i");
-        
-        if (currentTheme === "dark") {
-            document.body.removeAttribute("data-theme");
-            icon.className = "fas fa-moon";
-        } else {
-            document.body.setAttribute("data-theme", "dark");
-            icon.className = "fas fa-sun";
-        }
-    });
+    // 3. التبديل الذكي والسلس بين وضع النهار والليل (Premium Theme Toggle)
+    if (darkModeBtn) {
+        darkModeBtn.addEventListener("click", () => {
+            const currentTheme = document.body.getAttribute("data-theme");
+            const icon = darkModeBtn.querySelector("i");
+            
+            if (currentTheme === "dark") {
+                document.body.removeAttribute("data-theme");
+                if (icon) icon.className = "fas fa-moon";
+            } else {
+                document.body.setAttribute("data-theme", "dark");
+                if (icon) icon.className = "fas fa-sun";
+            }
+        });
+    }
 
-    // 4. Advanced Typewriter Effect for Bio Description
+    // 4. تأثير الآلة الكاتبة السريع والمنعش للوصف الشخصي (Bio)
     const roles = [
         "Automation & Industrial Informatics Engineer",
         "Founder of Aura Card 💳"
@@ -49,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingSpeed = 80;
+    let typingSpeed = 50; // سرعة كتابة ممتازة وديناميكية (50ms)
 
     function typeEffect() {
         if (!typewriterEl) return;
@@ -58,30 +66,31 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isDeleting) {
             typewriterEl.textContent = currentRole.substring(0, charIndex - 1);
             charIndex--;
-            typingSpeed = 40; 
+            typingSpeed = 25; // سرعة مسح فائقة لمنع الملل
         } else {
             typewriterEl.textContent = currentRole.substring(0, charIndex + 1);
             charIndex++;
-            typingSpeed = 80; 
+            typingSpeed = 50; 
         }
 
         if (!isDeleting && charIndex === currentRole.length) {
-            typingSpeed = 2000; 
+            typingSpeed = 1200; // وقفة خفيفة ومثالية عند اكتمال الجملة
             isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             roleIndex = (roleIndex + 1) % roles.length; 
-            typingSpeed = 500; 
+            typingSpeed = 300; 
         }
 
         setTimeout(typeEffect, typingSpeed);
     }
+    
     if (typewriterEl) typeEffect();
 
-
-    // 5. Click Blue Sparkles (STRICTLY DISABLED ON MOBILE FOR ULTRA FAST SPEED)
+    // 5. تأثير شرارات الـ Blue Sparkles الفاخر عند الضغط (يعمل على الحاسوب فقط لضمان خفة الهاتف)
     if (!isMobile) {
         document.addEventListener("click", (e) => {
+            // تجاهل التأثير إذا تم الضغط على الأزرار الرئيسية لكي لا يتداخل مع حركاتها الأصلية
             if (e.target.closest('.control-btn-top') || e.target.closest('.link-card') || e.target.closest('.discover-btn')) return;
 
             const totalParticles = 6;
@@ -99,7 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 sparkle.style.left = e.clientX + "px";
                 sparkle.style.top = e.clientY + "px";
                 
-                const colors = ['#1E40AF', '#3B82F6', '#ffffff', '#93C5FD'];
+                // تدرج ألوان متناسق مع هويتك الزرقاء اللطيفة
+                const colors = ['#1E40AF', '#3B82F6', '#FFFFFF', '#93C5FD'];
                 sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 
                 document.body.appendChild(sparkle);
