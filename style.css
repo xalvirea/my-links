@@ -5,17 +5,83 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* ☀️ Daytime: Cute Pastel Sky Blue (Exactly from your image) */
+    --bg-gradient: #CCE6FF; /* The soft, clean blue you provided */
+    --text-primary: #1E3A8A; /* Deep Navy text for perfect readable contrast */
+    --text-secondary: #5B7A9C;
+    --card-bg: rgba(255, 255, 255, 0.45); /* Elegant glass over soft blue */
+    --card-border: rgba(255, 255, 255, 0.6);
+    --btn-primary: #1E40AF; /* Strong Royal Blue Accent */
+    --btn-hover: #3B82F6;
+    --avatar-border: #FFFFFF;
+}
+
+[data-theme="dark"] {
+    /* 🌙 Night Mode: Luxurious Deep Dark Blue */
+    --bg-gradient: linear-gradient(180deg, #070B19 0%, #0F172A 60%, #1E293B 100%);
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --card-bg: rgba(15, 23, 42, 0.6); /* Cyber Dark Glass Shield */
+    --card-border: rgba(56, 189, 248, 0.15);
+    --btn-primary: #38BDF8; /* Glowing Sky Blue Accent for night clarity */
+    --btn-hover: #0EA5E9;
+    --avatar-border: #38BDF8;
+}
+
 body {
-    /* Perfect Gradient Inspired by image_934f86.png */
-    background: linear-gradient(180deg, #F3E7FA 0%, #D8C3FA 50%, #B69AFA 100%);
+    background: var(--bg-gradient);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; 
     width: 100vw;
     padding: 15px;
-    overflow: hidden; /* Encapsulated viewport, no scrolling bar */
+    overflow: hidden; 
     font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Floating Ambient Particles Background --- */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    bottom: -20px;
+    background-color: rgba(255, 255, 255, 0.35); /* Bright subtle dust for daytime */
+    border-radius: 50%;
+    animation: floatUp 12s infinite linear;
+}
+[data-theme="dark"] .particle { background-color: rgba(56, 189, 248, 0.08); }
+
+.particle:nth-child(1) { left: 10%; width: 15px; height: 15px; animation-duration: 14s; animation-delay: 1s; }
+.particle:nth-child(2) { left: 25%; width: 25px; height: 25px; animation-duration: 18s; animation-delay: 0s; }
+.particle:nth-child(3) { left: 40%; width: 10px; height: 10px; animation-duration: 12s; animation-delay: 3s; }
+.particle:nth-child(4) { left: 55%; width: 30px; height: 30px; animation-duration: 22s; animation-delay: 5s; }
+.particle:nth-child(5) { left: 70%; width: 18px; height: 18px; animation-duration: 16s; animation-delay: 2s; }
+.particle:nth-child(6) { left: 85%; width: 12px; height: 12px; animation-duration: 13s; animation-delay: 4s; }
+
+/* --- Click Sparkle Particle Effects --- */
+.click-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--btn-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    animation: burst 0.6s ease-out forwards;
 }
 
 /* --- Page Stages Management --- */
@@ -25,53 +91,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    position: relative;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.page-stage.hidden {
-    display: none;
-    opacity: 0;
-    transform: scale(0.98);
-}
+.page-stage.hidden { display: none; opacity: 0; transform: scale(0.98); }
 
 /* --- STAGE 1: Welcome Page Styles --- */
-.welcome-container {
-    text-align: center;
-    animation: fadeIn 1s ease-out;
-}
-
-.welcome-text {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: #4A3375;
-    margin-bottom: 30px;
-    letter-spacing: -0.5px;
-}
-
+.welcome-container { text-align: center; animation: fadeIn 1s ease-out; }
+.welcome-text { font-size: 3.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 30px; letter-spacing: -0.5px; }
 .discover-btn {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 1.05rem;
-    color: #ffffff;
-    background-color: #7C5CB7;
+    color: #FFFFFF;
+    background-color: var(--text-primary);
     border: none;
     padding: 15px 40px;
     border-radius: 20px;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(124, 92, 183, 0.25);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.2);
     transition: all 0.3s ease;
 }
+.discover-btn:hover { background-color: var(--btn-hover); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); }
+[data-theme="dark"] .discover-btn { color: #070B19; background-color: var(--btn-primary); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.2); }
+[data-theme="dark"] .discover-btn:hover { background-color: var(--btn-hover); color: #FFFFFF; }
 
-.discover-btn:hover {
-    background-color: #66469E;
-    box-shadow: 0 12px 30px rgba(124, 92, 183, 0.4);
-    transform: translateY(-4px);
-}
-
-/* --- STAGE 2: Links Page Styles (No-Scroll Grid) --- */
+/* --- STAGE 2: Links Page Styles --- */
 .container {
     width: 100%;
-    max-width: 540px; /* Expanded slightly to give 3 columns perfect spacing on PC */
+    max-width: 540px; 
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -81,129 +131,154 @@ body {
     animation: fadeInPage 0.6s ease-out;
 }
 
-.profile-header {
-    margin-top: 10px;
-    text-align: center;
+/* Control Top Buttons (Fixed in layout corners on page 1 and 2) */
+.control-btn-top {
+    position: absolute;
+    top: 25px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    z-index: 100;
 }
+.mode-toggle-left { left: 25px; }
+.share-button-right { right: 25px; }
+.control-btn-top:hover { background-color: var(--text-primary); color: var(--bg-gradient); transform: scale(1.1); }
+[data-theme="dark"] .control-btn-top:hover { color: #070B19; }
 
+/* Cute Popup Toast */
+.toast {
+    position: absolute;
+    top: 85px;
+    right: 25px;
+    background-color: var(--text-primary);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 200;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: slideIn 0.3s ease-out;
+}
+[data-theme="dark"] .toast { background-color: var(--btn-primary); color: #070B19; }
+.toast.hidden { display: none; }
+
+.profile-header { margin-top: 10px; text-align: center; }
 .avatar {
     width: 95px;
     height: 95px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ffffff;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    border: 3px solid var(--avatar-border);
     margin-bottom: 12px;
+    transition: border 0.5s ease;
 }
+.name { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.bio { font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; min-height: 22px; }
 
-.name {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #4A3375;
-    margin-bottom: 4px;
-}
+/* Typewriter Typing Cursor */
+.cursor { font-weight: 400; color: var(--text-primary); animation: blink 0.7s infinite; margin-left: 2px; }
+[data-theme="dark"] .cursor { color: var(--btn-primary); }
 
-.bio {
-    font-size: 0.95rem;
-    color: #634E89;
-    font-weight: 600;
-}
-
-/* --- Responsive Layout (3 Columns on PC, 1 Column on Mobile) --- */
+/* --- Grid System --- */
 .links-wrapper {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Clean 3x2 Grid layout for desktops */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 12px;
     margin: 25px 0;
 }
 
-/* Premium Frosted Glassmorphism Theme */
 .link-card {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
     text-decoration: none;
     padding: 16px 10px;
     border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+.link-card i { font-size: 1.2rem; color: var(--text-primary); }
+.link-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+[data-theme="dark"] .link-card i { color: var(--btn-primary); }
 
-.link-card i {
-    font-size: 1.2rem;
-    color: #7C5CB7;
-}
+.link-card:hover { transform: translateY(-5px) scale(1.02); background-color: rgba(255, 255, 255, 0.7); border-color: rgba(255, 255, 255, 0.9); }
+[data-theme="dark"] .link-card:hover { background-color: rgba(255, 255, 255, 0.05); }
 
-.link-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #4A3375;
-}
+.links-wrapper > :nth-child(3n+1):hover { transform: translateY(-5px) scale(1.02) rotate(-1.5deg); }
+.links-wrapper > :nth-child(3n+3):hover { transform: translateY(-5px) scale(1.02) rotate(1.5deg); }
 
-/* --- Clean & Professional Hover States --- */
-.linkedin-btn:hover { background-color: #E6F7FF; transform: translateY(-4px); border-color: #B3E5FC; }
-.linkedin-btn:hover .link-title, .linkedin-btn i { color: #0077B5; }
+/* --- Brand Hover Accents --- */
+.linkedin-btn:hover { border-color: #38BDF8; }
+.github-btn:hover { border-color: #000000; }
+[data-theme="dark"] .github-btn:hover { border-color: #FFFFFF; }
+.aura-btn:hover { border-color: #22D3EE; } 
+.resume-btn:hover { border-color: #FBBF24; } 
+.instagram-btn:hover { border-color: #F43F5E; }
+.facebook-btn:hover { border-color: #3B82F6; }
 
-.github-btn:hover { background-color: #F4EFFF; transform: translateY(-4px); border-color: #D1C4E9; }
-.github-btn:hover .link-title, .github-btn i { color: #6b46c1; }
-
-.aura-btn:hover { background-color: #E6FFFA; transform: translateY(-4px); border-color: #B2DFDB; }
-.aura-btn:hover .link-title, .aura-btn i { color: #2C7A7B; } 
-
-.resume-btn:hover { background-color: #FFF9E6; transform: translateY(-4px); border-color: #FFE082; }
-.resume-btn:hover .link-title, .resume-btn i { color: #C05621; } 
-
-.instagram-btn:hover { background-color: #FFF0F5; transform: translateY(-4px); border-color: #F8BBD0; }
-.instagram-btn:hover .link-title, .instagram-btn i { color: #D53F8C; }
-
-.facebook-btn:hover { background-color: #EEF3FF; transform: translateY(-4px); border-color: #ADC6FF; }
-.facebook-btn:hover .link-title, .facebook-btn i { color: #1877F2; }
+/* --- Icon Hover Animations --- */
+.link-card:hover .icon-bounce { animation: iconBounce 0.6s infinite alternate; }
+.link-card:hover .icon-wiggle { animation: iconWiggle 0.5s infinite ease-in-out; }
+.link-card:hover .icon-pulse { animation: iconPulse 0.8s infinite ease-in-out; }
+.link-card:hover i { transform: scale(1.15); }
+.link-card:hover .icon-spin { animation: iconSpin 0.7s ease-in-out; }
+.link-card:hover .icon-flip { animation: iconFlip 0.6s ease-in-out; }
 
 /* --- Footer --- */
-.footer {
-    font-size: 0.85rem;
-    color: #634E89;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
+.footer { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 5px; }
+.footer i { color: var(--text-primary); display: inline-block; animation: heartbeat 1.5s infinite; }
+[data-theme="dark"] .footer i { color: var(--btn-primary); }
 
-.footer i {
-    color: #7C5CB7;
-    display: inline-block;
-    animation: heartbeat 1.5s infinite;
-}
-
-/* --- Mobile View Breakpoint (Switches layout beautifully) --- */
+/* --- Responsive Layout --- */
 @media (max-width: 600px) {
-    .links-wrapper {
-        grid-template-columns: 1fr; /* Stacked 1-column layout on phones */
-        gap: 10px;
-    }
-    .link-card {
-        padding: 14px; /* Slightly tighter padding to ensure no overflow */
-    }
+    .links-wrapper { grid-template-columns: 1fr; gap: 10px; }
+    .link-card { padding: 14px; }
+    .link-card:hover { transform: translateY(-3px) scale(1.01) !important; }
     .welcome-text { font-size: 2.6rem; }
     .name { font-size: 1.4rem; }
+    .control-btn-top { top: 15px; width: 38px; height: 38px; font-size: 1rem; }
+    .mode-toggle-left { left: 15px; }
+    .share-button-right { right: 15px; }
+    .toast { top: 65px; right: 15px; }
 }
 
-/* --- Keyframe Animations --- */
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+/* --- Advanced Animations Keyframes --- */
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes burst {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(var(--mx), var(--my)) scale(0); opacity: 0; }
 }
-
-@keyframes fadeInPage {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-}
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes iconBounce { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
+@keyframes iconWiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+@keyframes iconPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+@keyframes iconSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes iconFlip { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(180deg); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInPage { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
